@@ -78,7 +78,8 @@ public class LoginScreen extends FlexLayout implements RequestHandler {
                 User user = new Gson().fromJson(oAuthResponse.getBody(),
                         User.class);
                 userSession.setUser(user);
-                VaadinSession.getCurrent().removeRequestHandler(this);
+                this.getUI().get().access(() -> VaadinSession.getCurrent()
+                        .removeRequestHandler(this));
 
                 ((VaadinServletResponse) vaadinResponse)
                         .getHttpServletResponse()
