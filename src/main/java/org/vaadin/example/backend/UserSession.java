@@ -1,5 +1,8 @@
 package org.vaadin.example.backend;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -9,17 +12,20 @@ import java.io.Serializable;
 @SessionScope
 public class UserSession implements Serializable {
 
-    private User user;
-
     public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+        Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
+        OAuth2AuthenticatedPrincipal principal = (OAuth2AuthenticatedPrincipal) authentication
+                .getPrincipal();
+        return new User(principal.getAttribute("given_name"),
+                principal.getAttribute("family_name"),
+                principal.getAttribute("email"),
+                principal.getAttribute("picture"));
     }
 
     public boolean isLoggedIn() {
-        return user != null;
+        Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
+        return authentication != null;
     }
 }

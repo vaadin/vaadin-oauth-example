@@ -2,11 +2,17 @@ package org.vaadin.example.backend;
 
 public class User {
 
+    private String firstName;
+    private String lastName;
     private String email;
     private String picture;
 
-    public User(String email) {
+    public User(String firstName, String lastName, String email,
+            String picture) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
+        this.picture = picture;
     }
 
     public String getPicture() {
@@ -15,6 +21,22 @@ public class User {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -27,6 +49,6 @@ public class User {
 
     @Override
     public String toString() {
-        return email;
+        return firstName;
     }
 }
