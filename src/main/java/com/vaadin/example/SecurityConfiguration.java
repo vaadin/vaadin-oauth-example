@@ -1,4 +1,4 @@
-package org.vaadin.example;
+package com.vaadin.example;
 
 import com.vaadin.flow.server.ServletHelper;
 import com.vaadin.flow.shared.ApplicationConstants;
@@ -11,6 +11,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import javax.servlet.http.HttpServletRequest;
 import java.util.stream.Stream;
 
+/**
+ * Configures spring security, doing the following:
+ * <li>Bypass security checks for static resources,</li>
+ * <li>Restrict access to the application, allowing only logged in users,</li>
+ * <li>Set up the login form,</li>
+ */
 @EnableWebSecurity
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -19,6 +25,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String LOGOUT_URL = "/logout";
     private static final String URL = "/";
 
+    /**
+     * Registers our UserDetailsService and the password encoder to be used on
+     * login attempts.
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // @formatter:off

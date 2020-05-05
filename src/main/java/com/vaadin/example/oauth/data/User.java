@@ -1,4 +1,4 @@
-package org.vaadin.example.backend;
+package com.vaadin.example.oauth.data;
 
 public class User {
 
