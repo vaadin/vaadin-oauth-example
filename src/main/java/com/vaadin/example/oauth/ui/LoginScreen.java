@@ -18,8 +18,8 @@ public class LoginScreen extends FlexLayout {
      * This methods gets the user into google sign in page.
      */
     public LoginScreen() {
-        Anchor gplusLoginButton = new Anchor(URL, "Login with Google");
-        add(gplusLoginButton);
+        Anchor googleLoginButton = new Anchor(URL, "Login with Google");
+        add(googleLoginButton);
         setSizeFull();
     }
 }

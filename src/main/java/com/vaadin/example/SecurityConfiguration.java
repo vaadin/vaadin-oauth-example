@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.stream.Stream;
 
 /**
- * Configures spring security, doing the following:
+ * Configures Spring Security, doing the following:
  * <li>Bypass security checks for static resources,</li>
  * <li>Restrict access to the application, allowing only logged in users,</li>
  * <li>Set up the login form,</li>
@@ -23,7 +23,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private static final String LOGIN_URL = "/login";
     private static final String LOGOUT_URL = "/logout";
-    private static final String URL = "/";
+    private static final String LOGOUT_SUCCESS_URL = "/";
 
     /**
      * Registers our UserDetailsService and the password encoder to be used on
@@ -44,7 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .and().csrf().disable()
 
             // Configure logout
-            .logout().logoutUrl(LOGOUT_URL).logoutSuccessUrl(URL)
+            .logout().logoutUrl(LOGOUT_URL).logoutSuccessUrl(LOGOUT_SUCCESS_URL)
 
             // Configure the login page.
             .and().oauth2Login().loginPage(LOGIN_URL).permitAll();
@@ -52,7 +52,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Allows access to static resources, bypassing Spring security.
+     * Allows access to static resources, bypassing Spring Security.
      */
     @Override
     public void configure(WebSecurity web) {
