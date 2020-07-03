@@ -7,8 +7,7 @@ public class User {
     private String email;
     private String picture;
 
-    public User(String firstName, String lastName, String email,
-            String picture) {
+    public User(String firstName, String lastName, String email, String picture) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

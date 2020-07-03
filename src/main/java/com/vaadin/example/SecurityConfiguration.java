@@ -1,15 +1,17 @@
 package com.vaadin.example;
 
-import com.vaadin.flow.server.ServletHelper;
-import com.vaadin.flow.shared.ApplicationConstants;
+import java.util.stream.Stream;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.stream.Stream;
+import com.vaadin.flow.server.ServletHelper;
+import com.vaadin.flow.shared.ApplicationConstants;
 
 /**
  * Configures Spring Security, doing the following:
@@ -26,28 +28,28 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String LOGOUT_SUCCESS_URL = "/";
 
     /**
-     * Registers our UserDetailsService and the password encoder to be used on
-     * login attempts.
+     * Registers our UserDetailsService and the password encoder to be used on login
+     * attempts.
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // @formatter:off
         http
 
-            // Allow all flow internal requests.
-            .authorizeRequests().requestMatchers(SecurityConfiguration::isFrameworkInternalRequest).permitAll()
+                // Allow all flow internal requests.
+                .authorizeRequests().requestMatchers(SecurityConfiguration::isFrameworkInternalRequest).permitAll()
 
-            // Restrict access to our application.
-            .and().authorizeRequests().anyRequest().authenticated()
+                // Restrict access to our application.
+                .and().authorizeRequests().anyRequest().authenticated()
 
-            // Not using Spring CSRF here to be able to use plain HTML for the login page
-            .and().csrf().disable()
+                // Not using Spring CSRF here to be able to use plain HTML for the login page
+                .and().csrf().disable()
 
-            // Configure logout
-            .logout().logoutUrl(LOGOUT_URL).logoutSuccessUrl(LOGOUT_SUCCESS_URL)
+                // Configure logout
+                .logout().logoutUrl(LOGOUT_URL).logoutSuccessUrl(LOGOUT_SUCCESS_URL)
 
-            // Configure the login page.
-            .and().oauth2Login().loginPage(LOGIN_URL).permitAll();
+                // Configure the login page with OAuth.
+                .and().oauth2Login().loginPage(LOGIN_URL).permitAll();
         // @formatter:on
     }
 
@@ -71,19 +73,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Tests if the request is an internal framework request. The test consists
-     * of checking if the request parameter is present and if its value is
-     * consistent with any of the request types know.
+     * Tests if the request is an internal framework request. The test consists of
+     * checking if the request parameter is present and if its value is consistent
+     * with any of the request types know.
      *
-     * @param request
-     *            {@link HttpServletRequest}
+     * @param request {@link HttpServletRequest}
      * @return true if is an internal framework request. False otherwise.
      */
     static boolean isFrameworkInternalRequest(HttpServletRequest request) {
-        final String parameterValue = request
-                .getParameter(ApplicationConstants.REQUEST_TYPE_PARAMETER);
-        return parameterValue != null
-                && Stream.of(ServletHelper.RequestType.values()).anyMatch(
-                        r -> r.getIdentifier().equals(parameterValue));
+        final String parameterValue = request.getParameter(ApplicationConstants.REQUEST_TYPE_PARAMETER);
+        return parameterValue != null && Stream.of(ServletHelper.RequestType.values()).anyMatch(r -> r.getIdentifier().equals(parameterValue));
     }
 }
