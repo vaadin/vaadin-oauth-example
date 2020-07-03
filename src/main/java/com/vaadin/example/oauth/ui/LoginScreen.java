@@ -1,4 +1,4 @@
-package org.vaadin.example.oauth;
+package com.vaadin.example.oauth.ui;
 
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -6,7 +6,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 /**
- * UI content when the user is not logged in yet.
+ * Adds an explicit link that the user has to click to login.
  */
 @Route("login")
 @PageTitle("Login")
@@ -25,6 +25,5 @@ public class LoginScreen extends VerticalLayout {
         Anchor gplusLoginButton = new Anchor(URL, "Login with Google");
         gplusLoginButton.getStyle().set("margin-top", "100px");
         add(gplusLoginButton);
-        setSizeFull();
     }
 }
