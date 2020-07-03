@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.vaadin.example</groupId>
-    <artifactId>googleloginwithoauth</artifactId>
-    <name>GoogleLoginWithOAuth</name>
+    <artifactId>gooleoauth</artifactId>
+    <name>Vaadin OAuth example</name>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -12,9 +12,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <vaadin.version>14.1.25</vaadin.version>
+        <vaadin.version>14.2.3</vaadin.version>
 
-        <drivers.dir>${project.basedir}/drivers</drivers.dir>
     </properties>
 
     <parent>
@@ -117,31 +116,6 @@
             <optional>true</optional>
         </dependency>
 
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-web-api</artifactId>
-            <version>7.0</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.github.scribejava/scribejava-apis -->
-        <dependency>
-            <groupId>com.github.scribejava</groupId>
-            <artifactId>scribejava-apis</artifactId>
-            <version>6.9.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-collections4</artifactId>
-            <version>4.4</version>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
