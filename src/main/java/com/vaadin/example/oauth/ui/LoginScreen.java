@@ -4,6 +4,7 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Value;
 
+import com.vaadin.example.corner.VaadinCorner;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -48,5 +49,6 @@ public class LoginScreen extends VerticalLayout {
             add(gplusLoginButton);
         }
 
+        add(new VaadinCorner());
     }
 }

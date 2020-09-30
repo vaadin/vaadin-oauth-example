@@ -119,6 +119,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-oauth2-client</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.vaadin.example</groupId>
+            <artifactId>vaadin-demo-utilities</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>
