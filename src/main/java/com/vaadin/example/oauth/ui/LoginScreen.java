@@ -42,8 +42,8 @@ public class LoginScreen extends VerticalLayout {
             add(text);
 
         } else {
-
             Anchor gplusLoginButton = new Anchor(URL, "Login with Google");
+            gplusLoginButton.getElement().setAttribute("router-ignore", true);
             gplusLoginButton.getStyle().set("margin-top", "100px");
             add(gplusLoginButton);
         }

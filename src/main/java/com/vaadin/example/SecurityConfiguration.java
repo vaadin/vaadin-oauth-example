@@ -4,14 +4,15 @@ import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.vaadin.flow.server.HandlerHelper;
+import com.vaadin.flow.shared.ApplicationConstants;
+import com.vaadin.flow.spring.security.VaadinWebSecurityConfigurerAdapter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-import com.vaadin.flow.server.ServletHelper;
-import com.vaadin.flow.shared.ApplicationConstants;
 
 /**
  * Configures Spring Security, doing the following:
@@ -27,13 +28,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String LOGOUT_URL = "/logout";
     private static final String LOGOUT_SUCCESS_URL = "/";
 
-    /**
-     * Registers our UserDetailsService and the password encoder to be used on login
-     * attempts.
-     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // @formatter:off
         http
 
                 // Allow all flow internal requests.
@@ -50,7 +46,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 // Configure the login page with OAuth.
                 .and().oauth2Login().loginPage(LOGIN_URL).permitAll();
-        // @formatter:on
     }
 
     /**
@@ -85,6 +80,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      */
     static boolean isFrameworkInternalRequest(HttpServletRequest request) {
         final String parameterValue = request.getParameter(ApplicationConstants.REQUEST_TYPE_PARAMETER);
-        return parameterValue != null && Stream.of(ServletHelper.RequestType.values()).anyMatch(r -> r.getIdentifier().equals(parameterValue));
+        return parameterValue != null && Stream.of(HandlerHelper.RequestType.values()).anyMatch(r -> r.getIdentifier().equals(parameterValue));
     }
 }
