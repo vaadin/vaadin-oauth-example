@@ -1,8 +1,8 @@
 package com.vaadin.example.oauth.ui;
 
-import javax.annotation.PostConstruct;
 
 import com.vaadin.flow.server.auth.AnonymousAllowed;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.vaadin.flow.component.html.Anchor;
@@ -10,6 +10,7 @@ import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import org.springframework.core.env.Environment;
 
 /**
  * Adds a link that the user has to click to login.
@@ -27,19 +28,14 @@ public class LoginView extends VerticalLayout {
      */
     private static final String OAUTH_URL = "/oauth2/authorization/google";
 
-    @Value("${spring.security.oauth2.client.registration.google.client-id}")
-    private String clientkey;
-
-    public LoginView() {
+    public LoginView(@Autowired Environment env) {
         setPadding(true);
         setAlignItems(Alignment.CENTER);
-    }
 
-    @PostConstruct
-    public void initView() {
+        String clientkey = env.getProperty("spring.security.oauth2.client.registration.google.client-id");
 
         // Check that oauth keys are present
-        if (clientkey == null || clientkey.isEmpty() || clientkey.length() < 16) {
+        if (clientkey == null || clientkey.isEmpty() || clientkey.length() < 32) {
             Paragraph text = new Paragraph("Could not find OAuth client key in application.properties. "
                     + "Please double-check the key and refer to the README.md file for instructions.");
             text.getStyle().set("padding-top", "100px");
@@ -51,6 +47,5 @@ public class LoginView extends VerticalLayout {
             loginLink.getStyle().set("margin-top", "100px");
             add(loginLink);
         }
-
     }
 }
