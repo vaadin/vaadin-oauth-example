@@ -1,16 +1,16 @@
 package com.vaadin.example;
 
-import com.vaadin.flow.spring.security.VaadinWebSecurityConfigurerAdapter;
+import com.vaadin.flow.spring.security.VaadinWebSecurity;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 
 /**
- * Configures Spring Security using VaadinWebSecurityConfigurerAdapter helper.
+ * Configures Spring Security using VaadinWebSecurity helper.
  * <br><br>
  *
- * VaadinWebSecurityConfigurerAdapter provides basic Vaadin security
+ * VaadinWebSecurity provides basic Vaadin security
  * configuration for the project out of the box. It sets up security rules for a
  * Vaadin application and restricts all URLs except for public resources and
  * internal Vaadin URLs to authenticated user.<br><br>
@@ -20,7 +20,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
  */
 @EnableWebSecurity
 @Configuration
-public class SecurityConfiguration extends VaadinWebSecurityConfigurerAdapter {
+public class SecurityConfiguration extends VaadinWebSecurity {
 
     private static final String LOGIN_URL = "/login";
 
