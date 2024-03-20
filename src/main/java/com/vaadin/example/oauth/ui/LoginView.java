@@ -1,7 +1,9 @@
 package com.vaadin.example.oauth.ui;
 
 
+import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
+import com.vaadin.flow.theme.lumo.LumoUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.flow.component.html.Anchor;
@@ -35,15 +37,14 @@ public class LoginView extends VerticalLayout {
 
         // Check that oauth keys are present
         if (clientkey == null || clientkey.isEmpty() || clientkey.length() < 32) {
-            Paragraph text = new Paragraph("Could not find OAuth client key in application.properties. "
-                    + "Please double-check the key and refer to the README.md file for instructions.");
-            text.getStyle().set("padding-top", "100px");
-            add(text);
+            add(new Paragraph("Could not find OAuth client key in application.properties. "
+                    + "Please double-check the key and refer to the README.md file for instructions."));
         } else {
+            add(new H1("Login to access this app"));
+            add(new Paragraph("This is demo app for Spring Security + Google, thus there is only one option to log in:"));
             Anchor loginLink = new Anchor(OAUTH_URL, "Login with Google");
-            // Set router-ignore attribute so that Vaadin router doesn't handle the login request
-            loginLink.getElement().setAttribute("router-ignore", true);
-            loginLink.getStyle().set("margin-top", "100px");
+            loginLink.addClassName(LumoUtility.FontSize.XLARGE);
+            loginLink.setRouterIgnore(true); // actually navigate away from this app
             add(loginLink);
         }
     }

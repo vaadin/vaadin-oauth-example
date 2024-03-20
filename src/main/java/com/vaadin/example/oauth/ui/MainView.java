@@ -1,11 +1,14 @@
 
 package com.vaadin.example.oauth.ui;
 
+import com.vaadin.example.oauth.data.User;
 import com.vaadin.example.oauth.data.UserSession;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinServletRequest;
@@ -26,11 +29,12 @@ public class MainView extends VerticalLayout {
     private static final String LOGOUT_SUCCESS_URL = "/";
 
     public MainView(UserSession userSession) {
-        Div div = new Div();
-        div.setText("Hello " + userSession.getUser().getFirstName() + " " + userSession.getUser().getLastName());
-        div.getElement().getStyle().set("font-size", "xx-large");
+        User user = userSession.getUser();
 
-        Image image = new Image(userSession.getUser().getPicture(), "User Image");
+        add(new H1("Hello %s!".formatted(user.getFirstName())));
+        add(new Paragraph("Your email is %s".formatted(user.getEmail())));
+
+        add(new Image(user.getPicture(), "User Image"));
 
         Button logoutButton = new Button("Logout", click -> {
             UI.getCurrent().getPage().setLocation(LOGOUT_SUCCESS_URL);
@@ -39,8 +43,8 @@ public class MainView extends VerticalLayout {
                     VaadinServletRequest.getCurrent().getHttpServletRequest(), null,
                     null);
         });
+        add(logoutButton);
 
         setAlignItems(Alignment.CENTER);
-        add(div, image, logoutButton);
     }
 }
