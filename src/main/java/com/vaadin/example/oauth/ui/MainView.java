@@ -26,8 +26,6 @@ import jakarta.annotation.security.PermitAll;
 @PermitAll
 public class MainView extends VerticalLayout {
 
-    private static final String LOGOUT_SUCCESS_URL = "/";
-
     public MainView(UserSession userSession) {
         User user = userSession.getUser();
 
@@ -37,11 +35,7 @@ public class MainView extends VerticalLayout {
         add(new Image(user.getPicture(), "User Image"));
 
         Button logoutButton = new Button("Logout", click -> {
-            UI.getCurrent().getPage().setLocation(LOGOUT_SUCCESS_URL);
-            SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
-            logoutHandler.logout(
-                    VaadinServletRequest.getCurrent().getHttpServletRequest(), null,
-                    null);
+            userSession.logout();
         });
         add(logoutButton);
 
