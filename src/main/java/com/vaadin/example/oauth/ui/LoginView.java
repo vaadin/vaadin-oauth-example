@@ -30,12 +30,11 @@ public class LoginView extends VerticalLayout {
     private static final String OAUTH_URL = "/oauth2/authorization/google";
 
     public LoginView(@Autowired Environment env) {
-        setPadding(true);
         setAlignItems(Alignment.CENTER);
 
         String clientkey = env.getProperty("spring.security.oauth2.client.registration.google.client-id");
 
-        // Check that oauth keys are present
+        // To give a better demo experience, check that oauth keys are present
         if (clientkey == null || clientkey.isEmpty() || clientkey.length() < 32) {
             add(new Paragraph("Could not find OAuth client key in application.properties. "
                     + "Please double-check the key and refer to the README.md file for instructions."));
